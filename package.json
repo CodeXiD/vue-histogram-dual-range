@@ -1,10 +1,29 @@
 {
   "name": "vue-histogram-dual-range",
+  "description": "Vue3 histogram dual range package",
+  "author": "Tkachenko Kirill <tkachenko.kirill.dev@gmail.com>",
   "version": "0.0.1",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/vue-histogram-dual-range-lib.umd.cjs",
   "module": "./dist/vue-histogram-dual-range-lib.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodeXiD/vue-histogram-dual-range.git"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue3",
+    "slider",
+    "range",
+    "dual-range",
+    "dual-slider",
+    "range-slider",
+    "histogram",
+    "histogram-slider"
+  ],
   "exports": {
     ".": {
       "import": "./dist/vue-histogram-dual-range-lib.js",
