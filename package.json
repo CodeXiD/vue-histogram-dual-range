@@ -1,0 +1,37 @@
+{
+  "name": "vue-histogram-dual-range",
+  "version": "0.0.1",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vue-histogram-dual-range-lib.umd.cjs",
+  "module": "./dist/vue-histogram-dual-range-lib.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-histogram-dual-range-lib.js",
+      "require": "./dist/vue-histogram-dual-range-lib.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build2": "vue-tsc -b && vite build",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly -p tsconfig.json",
+    "types": "vue-tsc ",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.11.0",
+    "vue": "^3.4.29",
+    "vue-histogram-dual-range": "file:./"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^7.16.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "eslint-plugin-vue": "^9.27.0",
+    "sass": "^1.77.7",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.1",
+    "vue-tsc": "^2.0.21"
+  }
+}
