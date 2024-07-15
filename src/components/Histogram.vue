@@ -24,9 +24,15 @@
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, PropType, ref, toRefs} from "vue";
+import {computed, defineProps, onUnmounted, PropType, ref, toRefs} from "vue";
 import {HistogramData} from "../types";
-import {get, useToNumber} from "@vueuse/core";
+import {
+  get, set,
+  useIntersectionObserver,
+  useResizeObserver,
+  useToNumber,
+  watchTriggerable
+} from "@vueuse/core";
 import computeColumnsAverages from "../helpers/computeColumnsAverage.ts";
 
 const props = defineProps({
@@ -67,17 +73,38 @@ const props = defineProps({
 const { histogramData, min, max, histogramColumnCount, histogramColumnOffset } = toRefs(props);
 
 const svgHistogramRef = ref<SVGGraphicsElement>();
+const svgHistogramWidth = ref(0);
 
-const svgHistogramWidth = computed(() => {
-  if(!get(svgHistogramRef)) return;
+const svgHistogramWatcher = watchTriggerable(
+    svgHistogramRef,
+    () => {
+      set(svgHistogramWidth, get(svgHistogramRef)?.clientWidth)
+    },
+)
 
-  return get(svgHistogramRef)?.clientWidth;
-})
 
 const rectWidth = computed(() => {
   const svgWidth = get(svgHistogramWidth);
   if(!svgWidth) return 0;
   return get(useToNumber((((svgWidth / get(histogramColumnCount)) - get(histogramColumnOffset)).toFixed(2))));
+})
+
+const svgResizeObserver = useResizeObserver(svgHistogramRef, () => {
+  svgHistogramWatcher.trigger();
+})
+
+const svgIntersectionObserver = useIntersectionObserver(
+    svgHistogramRef,
+    ([{ isIntersecting }]) => {
+      if(isIntersecting) {
+        svgHistogramWatcher.trigger();
+      }
+    },
+)
+
+onUnmounted(() => {
+  svgResizeObserver.stop();
+  svgIntersectionObserver.stop();
 })
 
 const histogramDataMap = computed(() => {
