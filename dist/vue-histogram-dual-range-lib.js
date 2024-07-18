@@ -1,8 +1,8 @@
-import { unref as x, computed as w, ref as N, watch as H, getCurrentScope as L, onScopeDispose as Z, isReactive as j, getCurrentInstance as B, nextTick as K, onMounted as Q, defineComponent as W, toRefs as P, onUnmounted as k, openBlock as O, createElementBlock as z, normalizeStyle as M, createElementVNode as I, pushScopeId as X, popScopeId as Y, Fragment as ee, renderList as te, createVNode as E, isRef as re } from "vue";
+import { unref as x, computed as N, ref as V, watch as H, getCurrentScope as L, onScopeDispose as Z, isReactive as j, getCurrentInstance as B, nextTick as K, onMounted as Q, defineComponent as W, toRefs as P, onUnmounted as k, openBlock as O, createElementBlock as z, normalizeStyle as M, createElementVNode as q, pushScopeId as X, popScopeId as Y, Fragment as ee, renderList as te, createVNode as E, isRef as re } from "vue";
 function U(e) {
   return L() ? (Z(e), !0) : !1;
 }
-function c(e, t) {
+function u(e, t) {
   return t == null ? x(e) : x(e)[t];
 }
 function $(e) {
@@ -21,7 +21,7 @@ function le(e, t) {
   return l;
 }
 const se = (e) => e();
-function q(...e) {
+function I(...e) {
   if (e.length === 2) {
     const [t, l] = e;
     t.value = l;
@@ -37,12 +37,12 @@ function ae(e, t = {}) {
     radix: o,
     nanToZero: s
   } = t;
-  return w(() => {
+  return N(() => {
     let r = $(e);
     return typeof r == "string" && (r = Number[l](r, o)), s && Number.isNaN(r) && (r = 0), r;
   });
 }
-function _(e, t, l = {}) {
+function T(e, t, l = {}) {
   const {
     eventFilter: o = se,
     ...s
@@ -50,48 +50,48 @@ function _(e, t, l = {}) {
     o,
     t
   );
-  let m, i, a;
+  let f, a, i;
   if (s.flush === "sync") {
-    const d = N(!1);
-    i = () => {
-    }, m = (n) => {
-      d.value = !0, n(), d.value = !1;
-    }, a = H(
+    const c = V(!1);
+    a = () => {
+    }, f = (n) => {
+      c.value = !0, n(), c.value = !1;
+    }, i = H(
       e,
       (...n) => {
-        d.value || r(...n);
+        c.value || r(...n);
       },
       s
     );
   } else {
-    const d = [], n = N(0), f = N(0);
-    i = () => {
-      n.value = f.value;
-    }, d.push(
+    const c = [], n = V(0), m = V(0);
+    a = () => {
+      n.value = m.value;
+    }, c.push(
       H(
         e,
         () => {
-          f.value++;
+          m.value++;
         },
         { ...s, flush: "sync" }
       )
-    ), m = (y) => {
-      const h = f.value;
-      y(), n.value += f.value - h;
-    }, d.push(
+    ), f = (y) => {
+      const h = m.value;
+      y(), n.value += m.value - h;
+    }, c.push(
       H(
         e,
         (...y) => {
-          const h = n.value > 0 && n.value === f.value;
-          n.value = 0, f.value = 0, !h && r(...y);
+          const h = n.value > 0 && n.value === m.value;
+          n.value = 0, m.value = 0, !h && r(...y);
         },
         s
       )
-    ), a = () => {
-      d.forEach((y) => y());
+    ), i = () => {
+      c.forEach((y) => y());
     };
   }
-  return { stop: a, ignoreUpdates: m, ignorePrevAsyncUpdates: i };
+  return { stop: i, ignoreUpdates: f, ignorePrevAsyncUpdates: a };
 }
 function ue(e, t, l = {}) {
   let o;
@@ -104,13 +104,13 @@ function ue(e, t, l = {}) {
   function r(n) {
     o = n;
   }
-  const m = (n, f) => (s(), t(n, f, r)), i = _(e, m, l), { ignoreUpdates: a } = i;
+  const f = (n, m) => (s(), t(n, m, r)), a = T(e, f, l), { ignoreUpdates: i } = a;
   return {
-    ...i,
+    ...a,
     trigger: () => {
       let n;
-      return a(() => {
-        n = m(ce(e), de(e));
+      return i(() => {
+        n = f(ce(e), de(e));
       }), n;
     }
   };
@@ -127,40 +127,40 @@ function R(e) {
   const l = $(e);
   return (t = l == null ? void 0 : l.$el) != null ? t : l;
 }
-const T = oe ? window : void 0;
+const _ = oe ? window : void 0;
 function me() {
-  const e = N(!1), t = B();
+  const e = V(!1), t = B();
   return t && Q(() => {
     e.value = !0;
   }, t), e;
 }
 function J(e) {
   const t = me();
-  return w(() => (t.value, !!e()));
+  return N(() => (t.value, !!e()));
 }
 function fe(e) {
   return JSON.parse(JSON.stringify(e));
 }
 function ge(e, t, l = {}) {
-  const { window: o = T, ...s } = l;
+  const { window: o = _, ...s } = l;
   let r;
-  const m = J(() => o && "ResizeObserver" in o), i = () => {
+  const f = J(() => o && "ResizeObserver" in o), a = () => {
     r && (r.disconnect(), r = void 0);
-  }, a = w(() => Array.isArray(e) ? e.map((f) => R(f)) : [R(e)]), d = H(
-    a,
-    (f) => {
-      if (i(), m.value && o) {
+  }, i = N(() => Array.isArray(e) ? e.map((m) => R(m)) : [R(e)]), c = H(
+    i,
+    (m) => {
+      if (a(), f.value && o) {
         r = new ResizeObserver(t);
-        for (const y of f)
+        for (const y of m)
           y && r.observe(y, s);
       }
     },
     { immediate: !0, flush: "post" }
   ), n = () => {
-    i(), d();
+    a(), c();
   };
   return U(n), {
-    isSupported: m,
+    isSupported: f,
     stop: n
   };
 }
@@ -169,87 +169,87 @@ function ve(e, t, l = {}) {
     root: o,
     rootMargin: s = "0px",
     threshold: r = 0.1,
-    window: m = T,
-    immediate: i = !0
-  } = l, a = J(() => m && "IntersectionObserver" in m), d = w(() => {
-    const b = $(e);
-    return (Array.isArray(b) ? b : [b]).map(R).filter(ie);
+    window: f = _,
+    immediate: a = !0
+  } = l, i = J(() => f && "IntersectionObserver" in f), c = N(() => {
+    const S = $(e);
+    return (Array.isArray(S) ? S : [S]).map(R).filter(ie);
   });
   let n = F;
-  const f = N(i), y = a.value ? H(
-    () => [d.value, R(o), f.value],
-    ([b, g]) => {
-      if (n(), !f.value || !b.length)
+  const m = V(a), y = i.value ? H(
+    () => [c.value, R(o), m.value],
+    ([S, A]) => {
+      if (n(), !m.value || !S.length)
         return;
-      const C = new IntersectionObserver(
+      const v = new IntersectionObserver(
         t,
         {
-          root: R(g),
+          root: R(A),
           rootMargin: s,
           threshold: r
         }
       );
-      b.forEach((V) => V && C.observe(V)), n = () => {
-        C.disconnect(), n = F;
+      S.forEach((b) => b && v.observe(b)), n = () => {
+        v.disconnect(), n = F;
       };
     },
-    { immediate: i, flush: "post" }
+    { immediate: a, flush: "post" }
   ) : F, h = () => {
-    n(), y(), f.value = !1;
+    n(), y(), m.value = !1;
   };
   return U(h), {
-    isSupported: a,
-    isActive: f,
+    isSupported: i,
+    isActive: m,
     pause() {
-      n(), f.value = !1;
+      n(), m.value = !1;
     },
     resume() {
-      f.value = !0;
+      m.value = !0;
     },
     stop: h
   };
 }
 function G(e, t, l, o = {}) {
-  var s, r, m;
+  var s, r, f;
   const {
-    clone: i = !1,
-    passive: a = !1,
-    eventName: d,
+    clone: a = !1,
+    passive: i = !1,
+    eventName: c,
     deep: n = !1,
-    defaultValue: f,
+    defaultValue: m,
     shouldEmit: y
-  } = o, h = B(), b = l || (h == null ? void 0 : h.emit) || ((s = h == null ? void 0 : h.$emit) == null ? void 0 : s.bind(h)) || ((m = (r = h == null ? void 0 : h.proxy) == null ? void 0 : r.$emit) == null ? void 0 : m.bind(h == null ? void 0 : h.proxy));
-  let g = d;
-  g = g || `update:${t.toString()}`;
-  const C = (u) => i ? typeof i == "function" ? i(u) : fe(u) : u, V = () => ne(e[t]) ? C(e[t]) : f, A = (u) => {
-    y ? y(u) && b(g, u) : b(g, u);
+  } = o, h = B(), S = l || (h == null ? void 0 : h.emit) || ((s = h == null ? void 0 : h.$emit) == null ? void 0 : s.bind(h)) || ((f = (r = h == null ? void 0 : h.proxy) == null ? void 0 : r.$emit) == null ? void 0 : f.bind(h == null ? void 0 : h.proxy));
+  let A = c;
+  A = A || `update:${t.toString()}`;
+  const v = (d) => a ? typeof a == "function" ? a(d) : fe(d) : d, b = () => ne(e[t]) ? v(e[t]) : m, w = (d) => {
+    y ? y(d) && S(A, d) : S(A, d);
   };
-  if (a) {
-    const u = V(), p = N(u);
-    let v = !1;
+  if (i) {
+    const d = b(), p = V(d);
+    let g = !1;
     return H(
       () => e[t],
-      (S) => {
-        v || (v = !0, p.value = C(S), K(() => v = !1));
+      (C) => {
+        g || (g = !0, p.value = v(C), K(() => g = !1));
       }
     ), H(
       p,
-      (S) => {
-        !v && (S !== e[t] || n) && A(S);
+      (C) => {
+        !g && (C !== e[t] || n) && w(C);
       },
       { deep: n }
     ), p;
   } else
-    return w({
+    return N({
       get() {
-        return V();
+        return b();
       },
-      set(u) {
-        A(u);
+      set(d) {
+        w(d);
       }
     });
 }
-const he = (e) => (X("data-v-f556e555"), e = e(), Y(), e), pe = { class: "sliders-control" }, ye = /* @__PURE__ */ he(() => /* @__PURE__ */ I("div", { class: "slider-track" }, null, -1)), Ce = ["value", "min", "max"], be = ["value", "min", "max"], Se = /* @__PURE__ */ W({
+const he = (e) => (X("data-v-f556e555"), e = e(), Y(), e), pe = { class: "sliders-control" }, ye = /* @__PURE__ */ he(() => /* @__PURE__ */ q("div", { class: "slider-track" }, null, -1)), Ce = ["value", "min", "max"], be = ["value", "min", "max"], Se = /* @__PURE__ */ W({
   __name: "DoubleRangeSlider",
   props: {
     modelValue: {
@@ -291,32 +291,32 @@ const he = (e) => (X("data-v-f556e555"), e = e(), Y(), e), pe = { class: "slider
   },
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
-    const l = t, o = e, { sliderColor: s, rangeColor: r, rangeActiveColor: m, min: i, max: a } = P(o), d = G(o, "modelValue", l), n = ([u, p]) => {
-      let v = u, S = p;
-      return v >= S && (v = S - 1), S <= v && (S = v + 1), (v < c(i) || v > c(a)) && (v = c(i)), (S > c(a) || S < c(i)) && (S = c(a)), [v, S];
-    }, { ignoreUpdates: f, stop: y } = _(d, (u, p) => {
-      u[0] === p[0] && u[1] === p[1] || q(d, n(u));
+    const l = t, o = e, { sliderColor: s, rangeColor: r, rangeActiveColor: f, min: a, max: i } = P(o), c = G(o, "modelValue", l), n = ([d, p]) => {
+      let g = d, C = p;
+      return g >= C && (g = C - 1), C <= g && (C = g + 1), (g < u(a) || g > u(i)) && (g = u(a)), (C > u(i) || C < u(a)) && (C = u(i)), [g, C];
+    }, { ignoreUpdates: m, stop: y } = T(c, (d, p) => {
+      d[0] === p[0] && d[1] === p[1] || I(c, n(d));
     });
     k(() => {
       y();
     });
-    const h = N(), b = N(), g = N(), C = (u) => {
-      let p = parseInt(u.target.value, 10);
-      const v = c(d)[1];
-      f(() => {
-        q(d, n([p, v]));
+    const h = V(), S = V(), A = V(), v = (d) => {
+      let p = parseInt(d.target.value, 10);
+      const g = u(c)[1];
+      m(() => {
+        I(c, n([p, g]));
       });
-    }, V = (u) => {
-      const p = c(d)[0];
-      let v = parseInt(u.target.value, 10);
-      f(() => {
-        q(d, n([p, v]));
+    }, b = (d) => {
+      const p = u(c)[0];
+      let g = parseInt(d.target.value, 10);
+      m(() => {
+        I(c, n([p, g]));
       });
-    }, A = w(() => {
-      const u = c(d)[0] / c(a) * 100, p = c(d)[1] / c(a) * 100;
-      return `linear-gradient(to right, ${c(r)} ${u}%, ${c(m)} ${u}%, ${c(m)} ${p}%, ${c(r)} ${p}%)`;
+    }, w = N(() => {
+      const d = u(c)[0] / u(i) * 100, p = u(c)[1] / u(i) * 100;
+      return `linear-gradient(to right, ${u(r)} ${d}%, ${u(f)} ${d}%, ${u(f)} ${p}%, ${u(r)} ${p}%)`;
     });
-    return (u, p) => (O(), z("div", {
+    return (d, p) => (O(), z("div", {
       class: "double-range-slider",
       style: M({
         "--sliderColor": x(s),
@@ -324,32 +324,32 @@ const he = (e) => (X("data-v-f556e555"), e = e(), Y(), e), pe = { class: "slider
         "--sliderHoverColor": e.sliderHoverColor,
         "--sliderSize": e.sliderSize,
         "--rangeColor": x(r),
-        "--rangeActiveColor": x(m),
-        "--rangeFillBg": A.value
+        "--rangeActiveColor": x(f),
+        "--rangeFillBg": w.value
       })
     }, [
-      I("div", pe, [
+      q("div", pe, [
         ye,
-        I("input", {
+        q("input", {
           ref_key: "fromSliderRef",
           ref: h,
           class: "fromSlider",
           type: "range",
-          value: x(d)[0],
-          min: x(i),
-          max: x(a),
-          onInput: C
+          value: x(c)[0],
+          min: x(a),
+          max: x(i),
+          onInput: v
         }, null, 40, Ce),
-        I("input", {
+        q("input", {
           ref_key: "toSliderRef",
-          ref: b,
+          ref: S,
           class: "toSlider",
           type: "range",
-          value: x(d)[1],
-          min: x(i),
-          max: x(a),
-          style: M({ background: g.value }),
-          onInput: V
+          value: x(c)[1],
+          min: x(a),
+          max: x(i),
+          style: M({ background: A.value }),
+          onInput: b
         }, null, 44, be)
       ])
     ], 4));
@@ -363,14 +363,14 @@ const he = (e) => (X("data-v-f556e555"), e = e(), Y(), e), pe = { class: "slider
 function Ve({ histogramDataMap: e, step: t, min: l, max: o }) {
   const s = [];
   for (let r = l; r <= o; r += t) {
-    let m = 0, i = 0;
-    for (let a = r; a < r + t && a <= o; a++)
-      e.has(a) && (m += e.get(a), i++);
-    i > 0 ? s.push(Number((m / i).toFixed(2))) : s.push(0);
+    let f = 0, a = 0;
+    for (let i = r; i < r + t && i <= o; i++)
+      e.has(i) && (f += e.get(i), a++);
+    a > 0 ? s.push(Number((f / a).toFixed(2))) : s.push(0);
   }
   return s;
 }
-const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
+const Ae = ["x", "width", "height", "fill"], Ne = /* @__PURE__ */ W({
   __name: "Histogram",
   props: {
     histogramData: {
@@ -383,6 +383,10 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
     },
     histogramColumnCount: {
       type: Number,
+      required: !0
+    },
+    histogramColumnAverages: {
+      type: Array,
       required: !0
     },
     min: {
@@ -407,47 +411,47 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
     }
   },
   setup(e) {
-    const t = e, { histogramData: l, min: o, max: s, histogramColumnCount: r, histogramColumnOffset: m } = P(t), i = N(), a = N(0), d = ue(
+    const t = e, { histogramData: l, min: o, max: s, histogramColumnCount: r, histogramColumnOffset: f, histogramColumnAverages: a } = P(t), i = V(), c = V(0), n = ue(
       i,
       () => {
-        var g;
-        q(a, (g = c(i)) == null ? void 0 : g.clientWidth);
+        var v;
+        I(c, (v = u(i)) == null ? void 0 : v.clientWidth);
       }
-    ), n = w(() => {
-      const g = c(a);
-      return g ? c(ae((g / c(r) - c(m)).toFixed(2))) : 0;
-    }), f = ge(i, () => {
-      d.trigger();
-    }), y = ve(
+    ), m = N(() => {
+      const v = u(c);
+      return v ? u(ae((v / u(r) - u(f)).toFixed(2))) : 0;
+    }), y = ge(i, () => {
+      n.trigger();
+    }), h = ve(
       i,
-      ([{ isIntersecting: g }]) => {
-        g && d.trigger();
+      ([{ isIntersecting: v }]) => {
+        v && n.trigger();
       }
     );
     k(() => {
-      f.stop(), y.stop();
+      y.stop(), h.stop();
     });
-    const h = w(() => {
-      let g = /* @__PURE__ */ new Map();
-      return c(l).forEach((C) => {
-        g.set(C.value, C.count);
-      }), g;
-    }), b = w(() => {
-      const g = Math.ceil(c(s) / c(r)), C = Ve({
-        histogramDataMap: c(h),
-        step: g,
-        min: c(o),
-        max: c(s)
-      }), V = Math.max.apply(Math, C);
-      return C.map((u) => u / V * 100).map((u, p) => {
-        let v = 0;
-        return p > 0 && (v = c(n) * p + p * c(m)), {
-          heightPercentage: u,
-          x: v
+    const S = N(() => {
+      let v = /* @__PURE__ */ new Map();
+      return u(l).forEach((b) => {
+        v.set(b.value, b.count);
+      }), v;
+    }), A = N(() => {
+      const v = Math.ceil(u(s) / u(r)), b = u(a) ? u(a) : Ve({
+        histogramDataMap: u(S),
+        step: v,
+        min: u(o),
+        max: u(s)
+      }), w = Math.max.apply(Math, b);
+      return b.map((p) => p / w * 100).map((p, g) => {
+        let C = 0;
+        return g > 0 && (C = u(m) * g + g * u(f)), {
+          heightPercentage: p,
+          x: C
         };
       });
     });
-    return (g, C) => (O(), z("div", {
+    return (v, b) => (O(), z("div", {
       class: "histogram",
       style: M({
         "--sliderSize": e.sliderSize
@@ -459,18 +463,18 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
         style: M({ height: `${e.histogramHeight}px` }),
         xmlns: "http://www.w3.org/2000/svg"
       }, [
-        (O(!0), z(ee, null, te(b.value, (V, A) => (O(), z("rect", {
-          key: A,
-          x: V.x,
+        (O(!0), z(ee, null, te(A.value, (w, d) => (O(), z("rect", {
+          key: d,
+          x: w.x,
           y: "0",
-          width: n.value,
-          height: `${V.heightPercentage}%`,
+          width: m.value,
+          height: `${w.heightPercentage}%`,
           fill: e.histogramColumnColor
-        }, null, 8, Ne))), 128))
+        }, null, 8, Ae))), 128))
       ], 4))
     ], 4));
   }
-}), Ae = /* @__PURE__ */ D(we, [["__scopeId", "data-v-994b0234"]]), He = { class: "histogram-range-container" }, Oe = /* @__PURE__ */ W({
+}), we = /* @__PURE__ */ D(Ne, [["__scopeId", "data-v-4b5ad2b5"]]), He = { class: "histogram-range-container" }, Oe = /* @__PURE__ */ W({
   __name: "VueHistogramDualRange",
   props: {
     modelValue: {
@@ -492,6 +496,10 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
     histogramColumnCount: {
       type: Number,
       default: 17
+    },
+    histogramColumnAverages: {
+      type: Array,
+      default: null
     },
     histogramHeight: {
       type: Number,
@@ -532,21 +540,22 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
   },
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
-    const l = t, o = e, s = G(o, "modelValue", l), r = w(() => o.histogramColumnCount <= o.max ? o.histogramColumnCount : o.max);
-    return (m, i) => (O(), z("div", He, [
-      E(Ae, {
+    const l = t, o = e, s = G(o, "modelValue", l), r = N(() => o.histogramColumnCount <= o.max ? o.histogramColumnCount : o.max);
+    return (f, a) => (O(), z("div", He, [
+      E(we, {
         "histogram-data": e.histogramData,
         "histogram-height": e.histogramHeight,
         "histogram-column-count": r.value,
+        "histogram-column-averages": e.histogramColumnAverages,
         max: e.max,
         min: e.min,
         "histogram-column-color": e.histogramColumnColor,
         "histogram-column-offset": e.histogramColumnOffset,
         "slider-size": e.sliderSize
-      }, null, 8, ["histogram-data", "histogram-height", "histogram-column-count", "max", "min", "histogram-column-color", "histogram-column-offset", "slider-size"]),
+      }, null, 8, ["histogram-data", "histogram-height", "histogram-column-count", "histogram-column-averages", "max", "min", "histogram-column-color", "histogram-column-offset", "slider-size"]),
       E(xe, {
         modelValue: x(s),
-        "onUpdate:modelValue": i[0] || (i[0] = (a) => re(s) ? s.value = a : null),
+        "onUpdate:modelValue": a[0] || (a[0] = (i) => re(s) ? s.value = i : null),
         min: e.min,
         max: e.max,
         "slider-color": e.sliderColor,
@@ -558,7 +567,7 @@ const Ne = ["x", "width", "height", "fill"], we = /* @__PURE__ */ W({
       }, null, 8, ["modelValue", "min", "max", "slider-color", "slider-border-color", "slider-hover-color", "slider-size", "range-color", "range-active-color"])
     ]));
   }
-}), Re = /* @__PURE__ */ D(Oe, [["__scopeId", "data-v-ed8a03ee"]]);
+}), Re = /* @__PURE__ */ D(Oe, [["__scopeId", "data-v-75c20065"]]);
 export {
   Re as default
 };

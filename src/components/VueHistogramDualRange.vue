@@ -4,6 +4,7 @@
       :histogram-data="histogramData"
       :histogram-height="histogramHeight"
       :histogram-column-count="possibleHistogramColumnCount"
+      :histogram-column-averages="histogramColumnAverages"
       :max="max"
       :min="min"
       :histogram-column-color="histogramColumnColor"
@@ -53,6 +54,10 @@ const props = defineProps({
   histogramColumnCount: {
     type: Number,
     default: 17
+  },
+  histogramColumnAverages: {
+    type: Array as PropType<Array<number>>,
+    default: null
   },
   histogramHeight: {
     type: Number,

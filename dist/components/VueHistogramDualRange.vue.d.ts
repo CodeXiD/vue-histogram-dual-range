@@ -21,6 +21,10 @@ declare const _default: import("vue").DefineComponent<{
         type: NumberConstructor;
         default: number;
     };
+    histogramColumnAverages: {
+        type: PropType<Array<number>>;
+        default: null;
+    };
     histogramHeight: {
         type: NumberConstructor;
         default: number;
@@ -80,6 +84,10 @@ declare const _default: import("vue").DefineComponent<{
         type: NumberConstructor;
         default: number;
     };
+    histogramColumnAverages: {
+        type: PropType<Array<number>>;
+        default: null;
+    };
     histogramHeight: {
         type: NumberConstructor;
         default: number;
@@ -131,6 +139,7 @@ declare const _default: import("vue").DefineComponent<{
     histogramData: HistogramData;
     histogramHeight: number;
     histogramColumnCount: number;
+    histogramColumnAverages: number[];
     histogramColumnColor: string;
     histogramColumnOffset: number;
 }, {}>;

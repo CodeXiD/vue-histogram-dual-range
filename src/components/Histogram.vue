@@ -48,6 +48,10 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  histogramColumnAverages: {
+    type: Array as PropType<Array<number>>,
+    required: true
+  },
   min: {
     type: Number,
     required: true
@@ -70,7 +74,7 @@ const props = defineProps({
   },
 });
 
-const { histogramData, min, max, histogramColumnCount, histogramColumnOffset } = toRefs(props);
+const { histogramData, min, max, histogramColumnCount, histogramColumnOffset, histogramColumnAverages } = toRefs(props);
 
 const svgHistogramRef = ref<SVGGraphicsElement>();
 const svgHistogramWidth = ref(0);
@@ -118,7 +122,7 @@ const histogramDataMap = computed(() => {
 const rects = computed(() => {
   const step = Math.ceil(get(max) / get(histogramColumnCount));
 
-  const columnsAverages = computeColumnsAverages({
+  const columnsAverages = get(histogramColumnAverages) ? get(histogramColumnAverages) : computeColumnsAverages({
     histogramDataMap: get(histogramDataMap),
     step,
     min: get(min),

@@ -13,6 +13,10 @@ declare const _default: import("vue").DefineComponent<{
         type: NumberConstructor;
         required: true;
     };
+    histogramColumnAverages: {
+        type: PropType<Array<number>>;
+        required: true;
+    };
     min: {
         type: NumberConstructor;
         required: true;
@@ -44,6 +48,10 @@ declare const _default: import("vue").DefineComponent<{
     };
     histogramColumnCount: {
         type: NumberConstructor;
+        required: true;
+    };
+    histogramColumnAverages: {
+        type: PropType<Array<number>>;
         required: true;
     };
     min: {

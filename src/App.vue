@@ -27,6 +27,21 @@
           Value: <code>{{ sliderValue2 }}</code>
         </div>
       </div>
+
+      <div class="example">
+        <h2>Optimized example with a large range</h2>
+        <VueHistogramDualRange
+          v-model="sliderValue3"
+          :min="1"
+          :max="9999999999"
+          :histogram-column-count="9"
+          :histogram-column-averages="histogramDataAverages"
+        />
+
+        <div class="value">
+          Value: <code>{{ sliderValue2 }}</code>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +55,8 @@ import "vue-histogram-dual-range/style.css"
 
 const sliderValue1 = ref([20, 70])
 const sliderValue2 = ref([1, 345345])
+const sliderValue3 = ref([1, 9999999999])
+
 
 const histogramValue: HistogramData = [
   { value: 1, count: 10 },
@@ -90,6 +107,18 @@ const histogramValue2: HistogramData = [
   { value: 304716, count: 1 },
   { value: 325031, count: 1 },
 ]
+
+const histogramDataAverages = [
+  30,
+  20,
+  50,
+  40,
+  10,
+  0,
+  90,
+  70,
+  30
+];
 </script>
 
 <style>
