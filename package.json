@@ -2,7 +2,7 @@
   "name": "vue-histogram-dual-range",
   "description": "Vue3 histogram dual range package",
   "author": "Tkachenko Kirill <tkachenko.kirill.dev@gmail.com>",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "files": ["dist"],
   "main": "./dist/vue-histogram-dual-range-lib.umd.cjs",
@@ -41,8 +41,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
-    "vue": "^3.4.29",
-    "vue-histogram-dual-range": "file:./"
+    "vue": "^3.4.29"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^7.16.0",
