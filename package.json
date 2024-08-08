@@ -2,7 +2,7 @@
   "name": "vue-histogram-dual-range",
   "description": "Vue3 histogram dual range package",
   "author": "Tkachenko Kirill <tkachenko.kirill.dev@gmail.com>",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "type": "module",
   "files": [
     "dist"

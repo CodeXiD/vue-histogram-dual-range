@@ -192,7 +192,7 @@ const columns = computed(() => {
 .histogram {
   .histogram-columns {
     position: relative;
-    width: calc(100% - var(--sliderSize) * 1px);
+    width: inherit;
     margin: 0 24px;
 
     .histogram-column-wrapper {

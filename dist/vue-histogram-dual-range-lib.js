@@ -2659,7 +2659,7 @@ const gi = /* @__PURE__ */ ae({
       ], 4)
     ], 4));
   }
-}), vi = /* @__PURE__ */ Ge(gi, [["__scopeId", "data-v-e37f9f23"]]), yi = { class: "histogram-range-container" }, wi = /* @__PURE__ */ ae({
+}), vi = /* @__PURE__ */ Ge(gi, [["__scopeId", "data-v-b33a96c7"]]), yi = { class: "histogram-range-container" }, wi = /* @__PURE__ */ ae({
   __name: "VueHistogramDualRange",
   props: {
     modelValue: {
