@@ -177,8 +177,6 @@ const columns = computed(() => {
     }
   })
 
-  console.log('### t', t)
-
   return t;
 })
 </script>
