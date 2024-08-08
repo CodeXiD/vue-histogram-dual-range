@@ -22,6 +22,7 @@
       >
         <Tooltip
           class="histogram-column-tooltip"
+          popper-class="histogram-column-tooltip-popper"
           :disabled="!slots.columnTooltip"
         >
           <div
@@ -160,7 +161,7 @@ const columns = computed(() => {
 
   const maxAverage = Math.max.apply(Math, columnsAverages.map(c => typeof c === 'number' ? c : c.avg));
 
-  const t = columnsAverages.map((column, idx) => {
+  return columnsAverages.map((column, idx) => {
     // высчитываем среднее значение сколько это процентов от макс среднего значения
     const columnHeightPercentage = ((typeof column === 'number' ? column : column.avg) / maxAverage) * 100
 
@@ -176,8 +177,6 @@ const columns = computed(() => {
       data: column
     }
   })
-
-  return t;
 })
 </script>
 
