@@ -47,6 +47,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: NumberConstructor;
         default: number;
     };
+    histogramNoZeroColumnMinHeightPercent: {
+        type: NumberConstructor;
+        default: number;
+    };
     sliderColor: {
         type: StringConstructor;
         default: string;
@@ -110,6 +114,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: NumberConstructor;
         default: number;
     };
+    histogramNoZeroColumnMinHeightPercent: {
+        type: NumberConstructor;
+        default: number;
+    };
     sliderColor: {
         type: StringConstructor;
         default: string;
@@ -152,6 +160,7 @@ declare const __VLS_component: import("vue").DefineComponent<{
     histogramColumnAverages: (number | ColumnAverage)[];
     histogramColumnColor: string;
     histogramColumnOffset: number;
+    histogramNoZeroColumnMinHeightPercent: number;
 }, {}>;
 declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, ReturnType<typeof __VLS_template>>;
 export default _default;

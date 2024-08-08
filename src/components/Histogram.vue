@@ -96,13 +96,17 @@ const props = defineProps({
     type: Number,
     required: true
   },
+  histogramNoZeroColumnMinHeightPercent: {
+    type: Number,
+    required: true
+  },
   sliderSize: {
     type: Number,
     required: true,
   },
 });
 
-const { histogramData, min, max, histogramColumnCount, histogramColumnOffset, histogramColumnAverages } = toRefs(props);
+const { histogramData, min, max, histogramColumnCount, histogramColumnOffset, histogramColumnAverages, histogramNoZeroColumnMinHeightPercent } = toRefs(props);
 
 const histogramRef = ref<SVGGraphicsElement>();
 const histogramWidth = ref(0);
@@ -165,6 +169,10 @@ const columns = computed(() => {
     // высчитываем среднее значение сколько это процентов от макс среднего значения
     const columnHeightPercentage = ((typeof column === 'number' ? column : column.avg) / maxAverage) * 100
 
+    const safeColumnHeightPercentage = (columnHeightPercentage > 0)
+        ? Math.max(columnHeightPercentage, get(histogramNoZeroColumnMinHeightPercent))
+        : 0
+
     let x = 0;
 
     if(idx > 0) {
@@ -172,7 +180,7 @@ const columns = computed(() => {
     }
 
     return {
-      heightPercentage: columnHeightPercentage,
+      heightPercentage: safeColumnHeightPercentage,
       x,
       data: column
     }

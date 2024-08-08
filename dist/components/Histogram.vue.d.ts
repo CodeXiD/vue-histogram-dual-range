@@ -44,6 +44,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: NumberConstructor;
         required: true;
     };
+    histogramNoZeroColumnMinHeightPercent: {
+        type: NumberConstructor;
+        required: true;
+    };
     sliderSize: {
         type: NumberConstructor;
         required: true;
@@ -78,6 +82,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         required: true;
     };
     histogramColumnOffset: {
+        type: NumberConstructor;
+        required: true;
+    };
+    histogramNoZeroColumnMinHeightPercent: {
         type: NumberConstructor;
         required: true;
     };

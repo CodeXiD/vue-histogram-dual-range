@@ -10,6 +10,7 @@
       :histogram-column-color="histogramColumnColor"
       :histogram-column-offset="histogramColumnOffset"
       :slider-size="sliderSize"
+      :histogram-no-zero-column-min-height-percent="histogramNoZeroColumnMinHeightPercent"
     >
       <template
         v-if="slots.columnTooltip"
@@ -82,6 +83,10 @@ const props = defineProps({
   histogramColumnOffset: {
     type: Number,
     default: 5
+  },
+  histogramNoZeroColumnMinHeightPercent: {
+    type: Number,
+    default: 0
   },
   sliderColor: {
     type: String,
