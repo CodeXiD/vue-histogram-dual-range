@@ -2,7 +2,7 @@
   "name": "vue-histogram-dual-range",
   "description": "Vue3 histogram dual range package",
   "author": "Tkachenko Kirill <tkachenko.kirill.dev@gmail.com>",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "files": [
     "dist"
@@ -36,13 +36,13 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build2": "vue-tsc -b && vite build",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly -p tsconfig.json",
     "types": "vue-tsc ",
     "preview": "vite preview"
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
+    "floating-vue": "^5.2.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "vue": "^3.4.29"
   },

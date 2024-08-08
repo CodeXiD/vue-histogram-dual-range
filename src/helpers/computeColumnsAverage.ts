@@ -1,10 +1,19 @@
+export interface ColumnAverage {
+	avg: number
+	sum: number
+	range: {
+		from: number
+		to: number
+	}
+}
+
 export default function computeColumnsAverages({ histogramDataMap, step, min, max }: {
 	histogramDataMap: Map<number, number>,
 	step: number,
 	min: number,
 	max: number,
-}): number[] {
-	const averages: number[] = [];
+}): ColumnAverage[] {
+	const averages: ColumnAverage[] = [];
 
 	for (let i = min; i <= max; i += step) {
 
@@ -20,9 +29,23 @@ export default function computeColumnsAverages({ histogramDataMap, step, min, ma
 		}
 
 		if(columnValuesCount > 0) {
-			averages.push(Number((columnSum / columnValuesCount).toFixed(2)));
+			averages.push({
+				avg: Number((columnSum / columnValuesCount).toFixed(2)),
+				sum: columnSum,
+				range: {
+					from: i,
+					to: Math.min(max, i + step)
+				}
+			});
 		} else {
-			averages.push(0)
+			averages.push({
+				avg: 0,
+				sum: 0,
+				range: {
+					from: i,
+					to: Math.min(max, i + step)
+				}
+			})
 		}
 	}
 

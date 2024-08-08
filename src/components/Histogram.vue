@@ -5,27 +5,52 @@
       '--sliderSize': sliderSize
     }"
   >
-    <svg
-      ref="svgHistogramRef"
+    <div
+      ref="histogramRef"
       :style="{ height: `${histogramHeight}px` }"
-      xmlns="http://www.w3.org/2000/svg"
+      class="histogram-columns"
     >
-      <rect
-        v-for="(rect, idx) in rects"
+      <div
+        v-for="(column, idx) in columns"
         :key="idx"
-        :x="rect.x"
-        y="0"
-        :width="rectWidth"
-        :height="`${rect.heightPercentage}%`"
-        :fill="histogramColumnColor"
-      />
-    </svg>
+        class="histogram-column-wrapper"
+        :style="{
+          left: `${column.x}px`,
+          width: rectWidth+'px',
+          height: `${column.heightPercentage}%`,
+        }"
+      >
+        <Tooltip
+          class="histogram-column-tooltip"
+          :disabled="!slots.columnTooltip"
+        >
+          <div
+            class="histogram-column"
+            :style="{
+              background: histogramColumnColor
+            }"
+          />
+
+          <template
+            v-if="slots.columnTooltip"
+            #popper
+          >
+            <slot
+              name="columnTooltip"
+              :column="column"
+            />
+          </template>
+        </Tooltip>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, defineProps, onUnmounted, PropType, ref, toRefs} from "vue";
+import {computed, defineProps, onUnmounted, PropType, ref, toRefs, useSlots} from "vue";
 import {HistogramData} from "../types";
+import { Tooltip } from 'floating-vue'
+import 'floating-vue/dist/style.css'
 import {
   get, set,
   useIntersectionObserver,
@@ -33,7 +58,9 @@ import {
   useToNumber,
   watchTriggerable
 } from "@vueuse/core";
-import computeColumnsAverages from "../helpers/computeColumnsAverage.ts";
+import computeColumnsAverages, {ColumnAverage} from "../helpers/computeColumnsAverage.ts";
+
+const slots = useSlots();
 
 const props = defineProps({
   histogramData: {
@@ -49,7 +76,7 @@ const props = defineProps({
     required: true
   },
   histogramColumnAverages: {
-    type: Array as PropType<Array<number>>,
+    type: Array as PropType<Array<number | ColumnAverage>>,
     required: true
   },
   min: {
@@ -76,39 +103,39 @@ const props = defineProps({
 
 const { histogramData, min, max, histogramColumnCount, histogramColumnOffset, histogramColumnAverages } = toRefs(props);
 
-const svgHistogramRef = ref<SVGGraphicsElement>();
-const svgHistogramWidth = ref(0);
+const histogramRef = ref<SVGGraphicsElement>();
+const histogramWidth = ref(0);
 
-const svgHistogramWatcher = watchTriggerable(
-    svgHistogramRef,
+const histogramWatcher = watchTriggerable(
+    histogramRef,
     () => {
-      set(svgHistogramWidth, get(svgHistogramRef)?.clientWidth)
+      set(histogramWidth, get(histogramRef)?.clientWidth)
     },
 )
 
 
 const rectWidth = computed(() => {
-  const svgWidth = get(svgHistogramWidth);
+  const svgWidth = get(histogramWidth);
   if(!svgWidth) return 0;
   return get(useToNumber((((svgWidth / get(histogramColumnCount)) - get(histogramColumnOffset)).toFixed(2))));
 })
 
-const svgResizeObserver = useResizeObserver(svgHistogramRef, () => {
-  svgHistogramWatcher.trigger();
+const histogramResizeObserver = useResizeObserver(histogramRef, () => {
+  histogramWatcher.trigger();
 })
 
-const svgIntersectionObserver = useIntersectionObserver(
-    svgHistogramRef,
+const histogramIntersectionObserver = useIntersectionObserver(
+    histogramRef,
     ([{ isIntersecting }]) => {
       if(isIntersecting) {
-        svgHistogramWatcher.trigger();
+        histogramWatcher.trigger();
       }
     },
 )
 
 onUnmounted(() => {
-  svgResizeObserver.stop();
-  svgIntersectionObserver.stop();
+  histogramResizeObserver.stop();
+  histogramIntersectionObserver.stop();
 })
 
 const histogramDataMap = computed(() => {
@@ -119,7 +146,7 @@ const histogramDataMap = computed(() => {
   return reactsMap;
 })
 
-const rects = computed(() => {
+const columns = computed(() => {
   const step = Math.ceil(get(max) / get(histogramColumnCount));
 
   const columnsAverages = get(histogramColumnAverages) ? get(histogramColumnAverages) : computeColumnsAverages({
@@ -129,30 +156,56 @@ const rects = computed(() => {
     max: get(max)
   })
 
-  const maxAverage = Math.max.apply(Math, columnsAverages);
-  // высчитываем из каждого среднего значения сколько это процентов от макс среднего значения
-  const rectHeightPercentages = columnsAverages.map((columnAverage) => (columnAverage / maxAverage) * 100);
 
-  return rectHeightPercentages.map((rectHeightPercentage, idx) => {
+
+  const maxAverage = Math.max.apply(Math, columnsAverages.map(c => typeof c === 'number' ? c : c.avg));
+
+  const t = columnsAverages.map((column, idx) => {
+    // высчитываем среднее значение сколько это процентов от макс среднего значения
+    const columnHeightPercentage = ((typeof column === 'number' ? column : column.avg) / maxAverage) * 100
+
     let x = 0;
 
     if(idx > 0) {
       x = (get(rectWidth) * idx + (idx * get(histogramColumnOffset)));
     }
+
     return {
-      heightPercentage: rectHeightPercentage,
+      heightPercentage: columnHeightPercentage,
       x,
+      data: column
     }
   })
+
+  console.log('### t', t)
+
+  return t;
 })
 </script>
 
 <style lang="scss" scoped>
 .histogram {
-  svg {
+  .histogram-columns {
+    position: relative;
     width: calc(100% - var(--sliderSize) * 1px);
     margin: 0 24px;
-    transform: scaleY(-1);
+
+    .histogram-column-wrapper {
+      position: absolute;
+      bottom: 0;
+
+      .histogram-column {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
+}
+</style>
+
+<style>
+.histogram-column-tooltip {
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -8,7 +8,12 @@
           :min="1"
           :max="100"
           :histogram-data="histogramValue"
-        />
+        >
+          <template #columnTooltip="slotProps">
+            <div>{{ slotProps.column.data.range.from }} - {{ slotProps.column.data.range.to }}</div>
+            <div>Total: {{ slotProps.column.data.sum }}</div>
+          </template>
+        </VueHistogramDualRange>
 
         <div class="value">
           Value: <code>{{ sliderValue1 }}</code>
@@ -42,16 +47,34 @@
           Value: <code>{{ sliderValue2 }}</code>
         </div>
       </div>
+
+      <div class="example">
+        <h2>Optimized example with a large range and tooltip</h2>
+        <VueHistogramDualRange
+          v-model="sliderValue3"
+          :min="1"
+          :max="9999999999"
+          :histogram-column-count="9"
+          :histogram-column-averages="histogramDataAveragesObject"
+        >
+          <template #columnTooltip="slotProps">
+            <div>{{ slotProps.column.data.range.from }} - {{ slotProps.column.data.range.to }}</div>
+            <div>Total: {{ slotProps.column.data.sum }}</div>
+          </template>
+        </VueHistogramDualRange>
+
+        <div class="value">
+          Value: <code>{{ sliderValue2 }}</code>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import VueHistogramDualRange from "./components/VueHistogramDualRange.vue";
 import {ref} from "vue";
 import {HistogramData} from "./types";
-import VueHistogramDualRange from "vue-histogram-dual-range";
-import "vue-histogram-dual-range/style.css"
+import VueHistogramDualRange from "./components/VueHistogramDualRange.vue";
 
 const sliderValue1 = ref([20, 70])
 const sliderValue2 = ref([1, 345345])
@@ -118,6 +141,81 @@ const histogramDataAverages = [
   90,
   70,
   30
+];
+
+const histogramDataAveragesObject = [
+  {
+    avg: 40,
+    sum: 100,
+    range: {
+      from: 0,
+      to: 1000000
+    }
+  },
+  {
+    avg: 10,
+    sum: 200,
+    range: {
+      from: 1000000,
+      to: 2000000
+    }
+  },
+  {
+    avg: 100,
+    sum: 500,
+    range: {
+      from: 2000000,
+      to: 3000000
+    }
+  },
+  {
+    avg: 50,
+    sum: 200,
+    range: {
+      from: 3000000,
+      to: 4000000
+    }
+  },
+  {
+    avg: 0,
+    sum: 0,
+    range: {
+      from: 4000000,
+      to: 5000000
+    }
+  },
+  {
+    avg: 10,
+    sum: 50,
+    range: {
+      from: 5000000,
+      to: 6000000
+    }
+  },
+  {
+    avg: 80,
+    sum: 300,
+    range: {
+      from: 6000000,
+      to: 7000000
+    }
+  },
+  {
+    avg: 0,
+    sum: 0,
+    range: {
+      from: 7000000,
+      to: 8000000
+    }
+  },
+  {
+    avg: 100,
+    sum: 600,
+    range: {
+      from: 8000000,
+      to: 9000000
+    }
+  }
 ];
 </script>
 

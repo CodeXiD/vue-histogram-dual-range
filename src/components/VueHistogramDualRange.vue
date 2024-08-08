@@ -10,7 +10,17 @@
       :histogram-column-color="histogramColumnColor"
       :histogram-column-offset="histogramColumnOffset"
       :slider-size="sliderSize"
-    />
+    >
+      <template
+        v-if="slots.columnTooltip"
+        #columnTooltip="slotProps"
+      >
+        <slot
+          name="columnTooltip"
+          v-bind="slotProps"
+        />
+      </template>
+    </Histogram>
     <DoubleRangeSlider
       v-model="modelValue"
       :min="min"
@@ -29,10 +39,12 @@
 import DoubleRangeSlider from "./DoubleRangeSlider.vue";
 import {useVModel} from "@vueuse/core";
 import Histogram from "./Histogram.vue";
-import {computed, PropType} from "vue";
+import {computed, PropType, useSlots} from "vue";
 import {HistogramData} from "../types";
+import {ColumnAverage} from "../helpers/computeColumnsAverage.ts";
 
 const emit = defineEmits(['update:modelValue'])
+const slots = useSlots();
 
 const props = defineProps({
   modelValue: {
@@ -56,7 +68,7 @@ const props = defineProps({
     default: 17
   },
   histogramColumnAverages: {
-    type: Array as PropType<Array<number>>,
+    type: Array as PropType<Array<number | ColumnAverage>>,
     default: null
   },
   histogramHeight: {
@@ -96,6 +108,8 @@ const props = defineProps({
     default: '#3264fe'
   }
 })
+
+console.log('### slots 111', slots)
 
 const modelValue = useVModel(props, 'modelValue', emit)
 

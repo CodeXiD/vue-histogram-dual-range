@@ -12,6 +12,26 @@
     <img alt="npm" src="https://img.shields.io/npm/v/vue-histogram-dual-range?style=flat-square">
 </p>
 
+
+<!-- TOC -->
+* [Vue Histogram Dual Range](#vue-histogram-dual-range)
+  * [Histogram dual range for Vue3](#histogram-dual-range-for-vue3)
+  * [📦 Installation](#-installation)
+    * [yarn](#yarn)
+    * [npm](#npm)
+  * [🔧 Simple usage](#-simple-usage)
+  * [📋 Props](#-props)
+  * [🔧 Event](#-event)
+  * [📦 Slots](#-slots)
+  * [Histogram data for large numbers](#histogram-data-for-large-numbers)
+    * [Example](#example)
+  * [Optimized example with a large range](#optimized-example-with-a-large-range)
+    * [Example](#example-1)
+  * [Optimized example with a large range and tooltip](#optimized-example-with-a-large-range-and-tooltip)
+    * [Example slotProps.column for the first column from the example above](#example-slotpropscolumn-for-the-first-column-from-the-example-above)
+<!-- TOC -->
+
+
 ## 📦 Installation
 ### yarn
 `yarn add vue-histogram-dual-range`
@@ -40,33 +60,45 @@ const histogramData: HistogramData = [
     :min="1"
     :max="100"
     :histogram-data="histogramData"
-/>
+>
+  <template #columnTooltip="slotProps">
+    <div>{{ slotProps.column.data.range.from }} - {{ slotProps.column.data.range.to }}</div>
+    <div>Total: {{ slotProps.column.data.sum }}</div>
+  </template>
+</VueHistogramDualRange>
 ```
 
 
 ## 📋 Props
 
-| Property                |  Type  | Default | Description                                                                                                                                                                                                                                          |
-|-------------------------|:------:|:-------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| min                     | number |    0    | Set slider minimum value                                                                                                                                                                                                                             |
-| max                     | number |   100   | Set slider maximum value                                                                                                                                                                                                                             |
-| histogramData           | array  |   []    | Data to display in a histogram                                                                                                                                                                                                                       |
-| histogramColumnAverages | array  |  null   | You can avoid passing the histogramData prop, passing instead an array of numbers histogramColumnAverages which will define the value for each column in order from first to last (Useful for optimization if the range is a large range of numbers) |
-| histogramColumnCount    | number |   17    | Number of bars in a histogram                                                                                                                                                                                                                        |
-| histogramHeight         | number |   83    | Histogram height                                                                                                                                                                                                                                     |
-| histogramColumnColor    | string | #a3bbff | Histogram column colors                                                                                                                                                                                                                              |
-| histogramColumnOffset   | number |    5    | Distance between histogram columns                                                                                                                                                                                                                   |
-| sliderColor             | string | #3264fe | Slider dot color                                                                                                                                                                                                                                     |
-| sliderBorderColor       | string | #577cec | Stroke color of slider points                                                                                                                                                                                                                        |
-| sliderHoverColor        | string | #577cec | Slider hover dot color                                                                                                                                                                                                                               |
-| sliderSize              | number |   20    | Slider dot size in pixels                                                                                                                                                                                                                            |
-| rangeColor              | string | #dadae5 | Slider line color that is not included in the active range                                                                                                                                                                                           |
-| rangeActiveColor        | string | #3264fe | The color of the slider line that is INCLUDED in the active range                                                                                                                                                                                    |
+| Property                |               Type               | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|-------------------------|:--------------------------------:|:-------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| min                     |              number              |    0    | Set slider minimum value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| max                     |              number              |   100   | Set slider maximum value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| histogramData           |              array               |   []    | Data to display in a histogram                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| histogramColumnAverages | number[] or {avg: number ... }[] |  null   | You can choose not to pass the histogramData property, passing instead an array of numbers histogramColumnAverages, which will determine the value for each column in order from first to last (useful for optimization if the range is a large range of numbers), or you can pass an array of objects with a numeric property avg (the behavior is identical to passing an array of numbers), in this case you can set your own properties to the object and get them in the columnsTooltip slot prop via slotProps.column.data |
+| histogramColumnCount    |              number              |   17    | Number of bars in a histogram                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| histogramHeight         |              number              |   83    | Histogram height                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| histogramColumnColor    |              string              | #a3bbff | Histogram column colors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| histogramColumnOffset   |              number              |    5    | Distance between histogram columns                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| sliderColor             |              string              | #3264fe | Slider dot color                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| sliderBorderColor       |              string              | #577cec | Stroke color of slider points                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| sliderHoverColor        |              string              | #577cec | Slider hover dot color                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| sliderSize              |              number              |   20    | Slider dot size in pixels                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| rangeColor              |              string              | #dadae5 | Slider line color that is not included in the active range                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| rangeActiveColor        |              string              | #3264fe | The color of the slider line that is INCLUDED in the active range                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ## 🔧 Event
 | Name              | Description                                  |
 |-------------------|----------------------------------------------|
 | update:modelValue | Called when the value of the sliders changes |
+
+## 📦 Slots
+
+| Name          | Props                                                                        | Description                                                                                                           |
+|---------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| columnTooltip | { column: { x: number; sum: number; data: number or { avg: number; ... } } } | The slot that will be inserted into the tooltip; slotProps has a column property with data about the displayed column |
+
 
 ## Histogram data for large numbers
 If you manipulate large numbers in ranges, for example, in a range from 1 to 20314 - the quantity value is 64, then you can pass the values exactly divided by quantity to the histogramData prop, and also pass the number of objects that are in HistogramData to `histogramColumnCount`
@@ -129,4 +161,71 @@ const histogramDataAverages = [
     :histogram-column-count="9"
     :histogram-column-averages="histogramDataAverages"
 />
+```
+
+## Optimized example with a large range and tooltip
+In the `histogramColumnAverages` prop you can also pass your own object with one required property - `avg`, this object will 
+be passed to the `columnTooltip` slot, and you can access them in this way `slotProps.column`
+
+
+```js
+const histogramDataAveragesObject = [
+  {
+    avg: 40,
+    sum: 100,
+    range: {
+      from: 0,
+      to: 1000000
+    }
+  },
+  {
+    avg: 10,
+    sum: 200,
+    range: {
+      from: 1000000,
+      to: 2000000
+    }
+  },
+  {
+    avg: 100,
+    sum: 500,
+    range: {
+      from: 2000000,
+      to: 3000000
+    }
+  },
+    // ...
+];
+```
+
+```xml
+<VueHistogramDualRange
+    v-model="sliderValue"
+    :min="1"
+    :max="9999999999"
+    :histogram-column-count="9"
+    :histogram-column-averages="histogramDataAverages"
+>
+    <template #columnTooltip="slotProps">
+        <div>{{ slotProps.column.data.range.from }} - {{ slotProps.column.data.range.to }}</div>
+        <div>Total: {{ slotProps.column.data.sum }}</div>
+    </template>
+</VueHistogramDualRange>
+```
+
+### Example slotProps.column for the first column from the example above
+
+```json
+{
+    "heightPercentage": 40,
+    "x": 0,
+    "data": {
+        "avg": 40,
+        "sum": 100,
+        "range": {
+            "from": 0,
+            "to": 1000000
+        }
+    }
+}
 ```

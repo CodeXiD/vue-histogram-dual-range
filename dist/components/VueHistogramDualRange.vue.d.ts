@@ -1,6 +1,16 @@
 import { PropType } from "vue";
 import { HistogramData } from "../types";
-declare const _default: import("vue").DefineComponent<{
+import { ColumnAverage } from "../helpers/computeColumnsAverage.ts";
+declare function __VLS_template(): {
+    columnTooltip?(_: {
+        column: {
+            heightPercentage: number;
+            x: number;
+            data: number | ColumnAverage;
+        };
+    }): any;
+};
+declare const __VLS_component: import("vue").DefineComponent<{
     modelValue: {
         type: ArrayConstructor;
         default: () => number[];
@@ -22,7 +32,7 @@ declare const _default: import("vue").DefineComponent<{
         default: number;
     };
     histogramColumnAverages: {
-        type: PropType<Array<number>>;
+        type: PropType<Array<number | ColumnAverage>>;
         default: null;
     };
     histogramHeight: {
@@ -85,7 +95,7 @@ declare const _default: import("vue").DefineComponent<{
         default: number;
     };
     histogramColumnAverages: {
-        type: PropType<Array<number>>;
+        type: PropType<Array<number | ColumnAverage>>;
         default: null;
     };
     histogramHeight: {
@@ -139,8 +149,15 @@ declare const _default: import("vue").DefineComponent<{
     histogramData: HistogramData;
     histogramHeight: number;
     histogramColumnCount: number;
-    histogramColumnAverages: number[];
+    histogramColumnAverages: (number | ColumnAverage)[];
     histogramColumnColor: string;
     histogramColumnOffset: number;
 }, {}>;
+declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, ReturnType<typeof __VLS_template>>;
 export default _default;
+
+type __VLS_WithTemplateSlots<T, S> = T & {
+    new (): {
+        $slots: S;
+    };
+};
