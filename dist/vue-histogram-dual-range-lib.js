@@ -2596,7 +2596,8 @@ const gi = /* @__PURE__ */ ae({
         step: f,
         min: S(n),
         max: S(r)
-      }), g = Math.max.apply(Math, w.map((v) => typeof v == "number" ? v : v.avg)), x = w.map((v, _) => {
+      }), g = Math.max.apply(Math, w.map((v) => typeof v == "number" ? v : v.avg));
+      return w.map((v, _) => {
         const A = (typeof v == "number" ? v : v.avg) / g * 100;
         let R = 0;
         return _ > 0 && (R = S(h) * _ + _ * S(a)), {
@@ -2605,7 +2606,6 @@ const gi = /* @__PURE__ */ ae({
           data: v
         };
       });
-      return console.log("### t", x), x;
     });
     return (f, w) => (B(), J("div", {
       class: "histogram",
@@ -2654,7 +2654,7 @@ const gi = /* @__PURE__ */ ae({
       ], 4)
     ], 4));
   }
-}), vi = /* @__PURE__ */ Ge(gi, [["__scopeId", "data-v-724cf3e9"]]), yi = { class: "histogram-range-container" }, wi = /* @__PURE__ */ ae({
+}), vi = /* @__PURE__ */ Ge(gi, [["__scopeId", "data-v-5bb91f6f"]]), yi = { class: "histogram-range-container" }, wi = /* @__PURE__ */ ae({
   __name: "VueHistogramDualRange",
   props: {
     modelValue: {
