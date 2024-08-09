@@ -2588,7 +2588,7 @@ const yi = /* @__PURE__ */ ae({
       }
     ), p = L(() => {
       const g = _(u);
-      return g ? _(po((g / _(s) - _(a)).toFixed(2))) : 0;
+      return g ? _(po((g - (_(a) * _(s) - _(a))) / _(s))) : 0;
     }), f = yo(c, () => {
       h.trigger();
     }), y = wo(
@@ -2670,7 +2670,7 @@ const yi = /* @__PURE__ */ ae({
       ], 4)
     ], 4));
   }
-}), wi = /* @__PURE__ */ Ge(yi, [["__scopeId", "data-v-b33a96c7"]]), bi = { class: "histogram-range-container" }, xi = /* @__PURE__ */ ae({
+}), wi = /* @__PURE__ */ Ge(yi, [["__scopeId", "data-v-ebc7874a"]]), bi = { class: "histogram-range-container" }, xi = /* @__PURE__ */ ae({
   __name: "VueHistogramDualRange",
   props: {
     modelValue: {

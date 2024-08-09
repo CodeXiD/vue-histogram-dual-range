@@ -122,7 +122,7 @@ const histogramWatcher = watchTriggerable(
 const rectWidth = computed(() => {
   const svgWidth = get(histogramWidth);
   if(!svgWidth) return 0;
-  return get(useToNumber((((svgWidth / get(histogramColumnCount)) - get(histogramColumnOffset)).toFixed(2))));
+  return get(useToNumber((svgWidth - ((get(histogramColumnOffset) * get(histogramColumnCount)) - get(histogramColumnOffset))) / get(histogramColumnCount) ));
 })
 
 const histogramResizeObserver = useResizeObserver(histogramRef, () => {
@@ -193,7 +193,7 @@ const columns = computed(() => {
   .histogram-columns {
     position: relative;
     width: inherit;
-    margin: 0 24px;
+    margin: 0 9px 0 12px;
 
     .histogram-column-wrapper {
       position: absolute;
