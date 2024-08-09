@@ -2,7 +2,7 @@
   "name": "vue-histogram-dual-range",
   "description": "Vue3 histogram dual range package",
   "author": "Tkachenko Kirill <tkachenko.kirill.dev@gmail.com>",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "type": "module",
   "files": [
     "dist"
@@ -44,7 +44,8 @@
     "@vueuse/core": "^10.11.0",
     "floating-vue": "^5.2.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
-    "vue": "^3.4.29"
+    "vue": "^3.4.29",
+    "vue-double-range-input": "^0.1.6"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^7.16.0",

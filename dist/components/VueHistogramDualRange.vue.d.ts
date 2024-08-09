@@ -55,14 +55,6 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
-    sliderBorderColor: {
-        type: StringConstructor;
-        default: string;
-    };
-    sliderHoverColor: {
-        type: StringConstructor;
-        default: string;
-    };
     sliderSize: {
         type: NumberConstructor;
         default: number;
@@ -72,6 +64,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         default: string;
     };
     rangeActiveColor: {
+        type: StringConstructor;
+        default: string;
+    };
+    rangeHeight: {
         type: StringConstructor;
         default: string;
     };
@@ -122,14 +118,6 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
-    sliderBorderColor: {
-        type: StringConstructor;
-        default: string;
-    };
-    sliderHoverColor: {
-        type: StringConstructor;
-        default: string;
-    };
     sliderSize: {
         type: NumberConstructor;
         default: number;
@@ -142,6 +130,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
         type: StringConstructor;
         default: string;
     };
+    rangeHeight: {
+        type: StringConstructor;
+        default: string;
+    };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
@@ -149,11 +141,10 @@ declare const __VLS_component: import("vue").DefineComponent<{
     min: number;
     max: number;
     sliderColor: string;
-    sliderBorderColor: string;
-    sliderHoverColor: string;
     sliderSize: number;
     rangeColor: string;
     rangeActiveColor: string;
+    rangeHeight: string;
     histogramData: HistogramData;
     histogramHeight: number;
     histogramColumnCount: number;

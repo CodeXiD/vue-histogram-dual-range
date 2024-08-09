@@ -32,6 +32,7 @@
       :slider-size="sliderSize"
       :range-color="rangeColor"
       :range-active-color="rangeActiveColor"
+      :range-height="rangeHeight"
     />
   </div>
 </template>
@@ -92,14 +93,6 @@ const props = defineProps({
     type: String,
     default: '#3264fe'
   },
-  sliderBorderColor: {
-    type: String,
-    default: '#577cec'
-  },
-  sliderHoverColor: {
-    type: String,
-    default: '#577cec'
-  },
   sliderSize: {
     type: Number,
     default: 20
@@ -111,6 +104,10 @@ const props = defineProps({
   rangeActiveColor: {
     type: String,
     default: '#3264fe'
+  },
+  rangeHeight: {
+    type: String,
+    default: '5px'
   }
 })
 

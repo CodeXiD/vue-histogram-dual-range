@@ -1,3 +1,4 @@
+import 'vue-double-range-input/dist/style.css';
 declare const _default: import("vue").DefineComponent<{
     modelValue: {
         type: ArrayConstructor;
@@ -15,14 +16,6 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         required: true;
     };
-    sliderBorderColor: {
-        type: StringConstructor;
-        required: true;
-    };
-    sliderHoverColor: {
-        type: StringConstructor;
-        required: true;
-    };
     sliderSize: {
         type: NumberConstructor;
         required: true;
@@ -32,6 +25,10 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
     };
     rangeActiveColor: {
+        type: StringConstructor;
+        required: true;
+    };
+    rangeHeight: {
         type: StringConstructor;
         required: true;
     };
@@ -54,14 +51,6 @@ declare const _default: import("vue").DefineComponent<{
         type: StringConstructor;
         required: true;
     };
-    sliderBorderColor: {
-        type: StringConstructor;
-        required: true;
-    };
-    sliderHoverColor: {
-        type: StringConstructor;
-        required: true;
-    };
     sliderSize: {
         type: NumberConstructor;
         required: true;
@@ -71,6 +60,10 @@ declare const _default: import("vue").DefineComponent<{
         required: true;
     };
     rangeActiveColor: {
+        type: StringConstructor;
+        required: true;
+    };
+    rangeHeight: {
         type: StringConstructor;
         required: true;
     };
