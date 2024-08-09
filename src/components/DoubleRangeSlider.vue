@@ -39,7 +39,7 @@
 <script setup lang="ts">
 
 import {ref, toRefs, defineProps, onUnmounted, computed} from "vue";
-import {get, set, useVModel, watchIgnorable} from "@vueuse/core";
+import {get, set, useMemoize, useVModel, watchIgnorable} from "@vueuse/core";
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -86,7 +86,7 @@ const { sliderColor, rangeColor, rangeActiveColor, min, max } = toRefs(props)
 
 const modelValue = useVModel(props, 'modelValue', emit)
 
-const getValidRange = ([fromSliderValue, toSliderValue]: [number, number]) => {
+const getValidRange = useMemoize(([fromSliderValue, toSliderValue]: [number, number]) => {
   let validFromValue = fromSliderValue;
   let validToValue = toSliderValue;
 
@@ -97,7 +97,7 @@ const getValidRange = ([fromSliderValue, toSliderValue]: [number, number]) => {
   if(validToValue > get(max) || validToValue < get(min)) validToValue = get(max);
 
   return [validFromValue, validToValue]
-}
+})
 
 const { ignoreUpdates: ignoreUpdatesModelValue, stop: stopWatchModelValue } = watchIgnorable(modelValue, (newValue, oldValue) => {
   const isEqual = newValue[0] === oldValue[0] && newValue[1] === oldValue[1]
