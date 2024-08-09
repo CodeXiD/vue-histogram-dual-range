@@ -10,6 +10,8 @@
     :hander-width="sliderSize"
     :hander-height="sliderSize"
     :track-height="rangeHeight"
+    :show-numbers="false"
+    :push-on-touch="true"
     @update:min-value="onChangeFromSlider"
     @update:max-value="onChangeToSlider"
   />
@@ -66,8 +68,8 @@ const getValidRange = useMemoize(([fromSliderValue, toSliderValue]: [number, num
   let validFromValue = fromSliderValue;
   let validToValue = toSliderValue;
 
-  if(validFromValue > validToValue) validFromValue = validToValue - 1;
-  if (validToValue < validFromValue) validToValue = validFromValue + 1;
+  if(validFromValue > validToValue) validFromValue = validToValue;
+  if (validToValue < validFromValue) validToValue = validFromValue;
 
   if(validFromValue < get(min) || validFromValue > get(max)) validFromValue = get(min);
   if(validToValue > get(max) || validToValue < get(min)) validToValue = get(max);
@@ -89,7 +91,7 @@ const onChangeFromSlider = (newValue: string) => {
   const toValue = get(modelValue)[1] as number;
 
   ignoreUpdatesModelValue(() => {
-    set(modelValue, getValidRange([fromValue, toValue]))
+    set(modelValue, [fromValue, toValue])
   })
 }
 
@@ -98,7 +100,7 @@ const onChangeToSlider = (newValue: string) => {
   let toValue = parseInt(newValue, 10);
 
   ignoreUpdatesModelValue(() => {
-    set(modelValue, getValidRange([fromValue, toValue]))
+    set(modelValue, [fromValue, toValue])
   })
 }
 </script>

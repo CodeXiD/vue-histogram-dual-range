@@ -431,7 +431,7 @@ const zo = /* @__PURE__ */ le({
   setup(e, { emit: t }) {
     const o = t, i = e, { sliderColor: n, rangeColor: r, rangeActiveColor: s, min: a, max: l } = St(i), u = Ht(i, "modelValue", o), d = Oo(([v, w]) => {
       let c = v, f = w;
-      return c > f && (c = f - 1), f < c && (f = c + 1), (c < _(a) || c > _(l)) && (c = _(a)), (f > _(l) || f < _(a)) && (f = _(l)), [c, f];
+      return c > f && (c = f), f < c && (f = c), (c < _(a) || c > _(l)) && (c = _(a)), (f > _(l) || f < _(a)) && (f = _(l)), [c, f];
     }), { ignoreUpdates: p, stop: m } = Ot(u, (v, w) => {
       v[0] === w[0] && v[1] === w[1] || Ce(u, d(v));
     });
@@ -442,13 +442,13 @@ const zo = /* @__PURE__ */ le({
       let w = parseInt(v, 10);
       const c = _(u)[1];
       p(() => {
-        Ce(u, d([w, c]));
+        Ce(u, [w, c]);
       });
     }, g = (v) => {
       const w = _(u)[0];
       let c = parseInt(v, 10);
       p(() => {
-        Ce(u, d([w, c]));
+        Ce(u, [w, c]);
       });
     };
     return (v, w) => (k(), Me(T(go), {
@@ -462,6 +462,8 @@ const zo = /* @__PURE__ */ le({
       "hander-width": e.sliderSize,
       "hander-height": e.sliderSize,
       "track-height": e.rangeHeight,
+      "show-numbers": !1,
+      "push-on-touch": !0,
       "onUpdate:minValue": h,
       "onUpdate:maxValue": g
     }, null, 8, ["min", "max", "min-value", "max-value", "color", "track-color", "handler-color", "hander-width", "hander-height", "track-height"]));
@@ -471,7 +473,7 @@ const zo = /* @__PURE__ */ le({
   for (const [i, n] of t)
     o[i] = n;
   return o;
-}, ko = /* @__PURE__ */ Xe(zo, [["__scopeId", "data-v-c72e02c2"]]), Ho = ["top", "right", "bottom", "left"], nt = ["start", "end"], rt = /* @__PURE__ */ Ho.reduce((e, t) => e.concat(t, t + "-" + nt[0], t + "-" + nt[1]), []), re = Math.min, ne = Math.max, Ro = {
+}, ko = /* @__PURE__ */ Xe(zo, [["__scopeId", "data-v-2054bf6e"]]), Ho = ["top", "right", "bottom", "left"], nt = ["start", "end"], rt = /* @__PURE__ */ Ho.reduce((e, t) => e.concat(t, t + "-" + nt[0], t + "-" + nt[1]), []), re = Math.min, ne = Math.max, Ro = {
   left: "right",
   right: "left",
   bottom: "top",
@@ -483,7 +485,7 @@ const zo = /* @__PURE__ */ le({
 function qe(e, t, o) {
   return ne(e, re(t, o));
 }
-function de(e, t) {
+function ue(e, t) {
   return typeof e == "function" ? e(t) : e;
 }
 function j(e) {
@@ -698,7 +700,7 @@ async function De(e, t) {
     elementContext: p = "floating",
     altBoundary: m = !1,
     padding: h = 0
-  } = de(t, e), g = Dt(h), w = a[m ? p === "floating" ? "reference" : "floating" : p], c = fe(await r.getClippingRect({
+  } = ue(t, e), g = Dt(h), w = a[m ? p === "floating" ? "reference" : "floating" : p], c = fe(await r.getClippingRect({
     element: (o = await (r.isElement == null ? void 0 : r.isElement(w))) == null || o ? w : w.contextElement || await (r.getDocumentElement == null ? void 0 : r.getDocumentElement(a.floating)),
     boundary: u,
     rootBoundary: d,
@@ -742,7 +744,7 @@ const Fo = (e) => ({
     } = t, {
       element: u,
       padding: d = 0
-    } = de(e, t) || {};
+    } = ue(e, t) || {};
     if (u == null)
       return {};
     const p = Dt(d), m = {
@@ -751,12 +753,12 @@ const Fo = (e) => ({
     }, h = Je(n), g = Ke(h), v = await s.getDimensions(u), w = h === "y", c = w ? "top" : "left", f = w ? "bottom" : "right", y = w ? "clientHeight" : "clientWidth", $ = r.reference[g] + r.reference[h] - m[h] - r.floating[g], x = m[h] - r.reference[h], S = await (s.getOffsetParent == null ? void 0 : s.getOffsetParent(u));
     let P = S ? S[y] : 0;
     (!P || !await (s.isElement == null ? void 0 : s.isElement(S))) && (P = a.floating[y] || r.floating[g]);
-    const D = $ / 2 - x / 2, A = P / 2 - v[g] / 2 - 1, C = re(p[c], A), H = re(p[f], A), U = C, oe = P - v[g] - H, N = P / 2 - v[g] / 2 + D, ue = qe(U, N, oe), G = !l.arrow && F(n) != null && N !== ue && r.reference[g] / 2 - (N < U ? C : H) - v[g] / 2 < 0, I = G ? N < U ? N - U : N - oe : 0;
+    const D = $ / 2 - x / 2, A = P / 2 - v[g] / 2 - 1, C = re(p[c], A), H = re(p[f], A), U = C, oe = P - v[g] - H, N = P / 2 - v[g] / 2 + D, de = qe(U, N, oe), G = !l.arrow && F(n) != null && N !== de && r.reference[g] / 2 - (N < U ? C : H) - v[g] / 2 < 0, I = G ? N < U ? N - U : N - oe : 0;
     return {
       [h]: m[h] + I,
       data: {
-        [h]: ue,
-        centerOffset: N - ue - I,
+        [h]: de,
+        centerOffset: N - de - I,
         ...G && {
           alignmentOffset: I
         }
@@ -786,7 +788,7 @@ const Wo = function(e) {
         allowedPlacements: m = rt,
         autoAlignment: h = !0,
         ...g
-      } = de(e, t), v = p !== void 0 || m === rt ? Io(p || null, h, m) : m, w = await De(t, g), c = ((o = s.autoPlacement) == null ? void 0 : o.index) || 0, f = v[c];
+      } = ue(e, t), v = p !== void 0 || m === rt ? Io(p || null, h, m) : m, w = await De(t, g), c = ((o = s.autoPlacement) == null ? void 0 : o.index) || 0, f = v[c];
       if (f == null)
         return {};
       const y = Mt(f, r, await (l.isRTL == null ? void 0 : l.isRTL(u.floating)));
@@ -857,7 +859,7 @@ const Wo = function(e) {
         fallbackAxisSideDirection: g = "none",
         flipAlignment: v = !0,
         ...w
-      } = de(e, t);
+      } = ue(e, t);
       if ((o = r.arrow) != null && o.alignmentOffset)
         return {};
       const c = j(n), f = ae(a), y = j(a) === a, $ = await (l.isRTL == null ? void 0 : l.isRTL(u.floating)), x = m || (y || !v ? [ke(a)] : Do(a)), S = g !== "none";
@@ -873,15 +875,15 @@ const Wo = function(e) {
         overflows: A
       }], !A.every((N) => N <= 0)) {
         var H, U;
-        const N = (((H = r.flip) == null ? void 0 : H.index) || 0) + 1, ue = P[N];
-        if (ue)
+        const N = (((H = r.flip) == null ? void 0 : H.index) || 0) + 1, de = P[N];
+        if (de)
           return {
             data: {
               index: N,
               overflows: C
             },
             reset: {
-              placement: ue
+              placement: de
             }
           };
         let G = (U = C.filter((I) => I.overflows[0] <= 0).sort((I, Y) => I.overflows[1] - Y.overflows[1])[0]) == null ? void 0 : U.placement;
@@ -921,7 +923,7 @@ async function jo(e, t) {
     placement: o,
     platform: i,
     elements: n
-  } = e, r = await (i.isRTL == null ? void 0 : i.isRTL(n.floating)), s = j(o), a = F(o), l = ae(o) === "y", u = ["left", "top"].includes(s) ? -1 : 1, d = r && l ? -1 : 1, p = de(t, e);
+  } = e, r = await (i.isRTL == null ? void 0 : i.isRTL(n.floating)), s = j(o), a = F(o), l = ae(o) === "y", u = ["left", "top"].includes(s) ? -1 : 1, d = r && l ? -1 : 1, p = ue(t, e);
   let {
     mainAxis: m,
     crossAxis: h,
@@ -991,7 +993,7 @@ const Uo = function(e) {
           }
         },
         ...l
-      } = de(e, t), u = {
+      } = ue(e, t), u = {
         x: o,
         y: i
       }, d = await De(t, l), p = ae(j(n)), m = Rt(p);
@@ -1032,7 +1034,7 @@ const Uo = function(e) {
         apply: s = () => {
         },
         ...a
-      } = de(e, t), l = await De(t, a), u = j(o), d = F(o), p = ae(o) === "y", {
+      } = ue(e, t), l = await De(t, a), u = j(o), d = F(o), p = ae(o) === "y", {
         width: m,
         height: h
       } = i.floating;
@@ -1166,7 +1168,7 @@ function Re(e, t) {
   const i = qt(e), n = i === ((o = e.ownerDocument) == null ? void 0 : o.body), r = M(i);
   return n ? t.concat(r, r.visualViewport || [], Be(i) ? i : []) : t.concat(i, Re(i));
 }
-function dt(e, t, o) {
+function ut(e, t, o) {
   return t === "viewport" ? fe(function(i, n) {
     const r = M(i), s = Q(i), a = r.visualViewport;
     let l = s.clientWidth, u = s.clientHeight, d = 0, p = 0;
@@ -1186,13 +1188,13 @@ function dt(e, t, o) {
     return W(s).direction === "rtl" && (u += me(n.clientWidth, s.clientWidth) - a), { width: a, height: l, x: u, y: d };
   }(Q(e)));
 }
-function ut(e) {
+function dt(e) {
   return q(e) && W(e).position !== "fixed" ? e.offsetParent : null;
 }
 function ct(e) {
   const t = M(e);
-  let o = ut(e);
-  for (; o && Zo(o) && W(o).position === "static"; ) o = ut(o);
+  let o = dt(e);
+  for (; o && Zo(o) && W(o).position === "static"; ) o = dt(o);
   return o && (te(o) === "html" || te(o) === "body" && W(o).position === "static" && !je(o)) ? t : o || function(i) {
     let n = be(i);
     for (; q(n) && !Qe(n); ) {
@@ -1226,9 +1228,9 @@ const Ko = { getClippingRect: function(e) {
     }
     return d.set(u, m), m;
   }(t, this._c) : [].concat(o), s = [...r, i], a = s[0], l = s.reduce((u, d) => {
-    const p = dt(t, d, n);
+    const p = ut(t, d, n);
     return u.top = me(p.top, u.top), u.right = at(p.right, u.right), u.bottom = at(p.bottom, u.bottom), u.left = me(p.left, u.left), u;
-  }, dt(t, a, n));
+  }, ut(t, a, n));
   return { width: l.right - l.left, height: l.bottom - l.top, x: l.left, y: l.top };
 }, convertOffsetParentRelativeRectToViewportRelativeRect: function(e) {
   let { rect: t, offsetParent: o, strategy: i } = e;
@@ -2129,13 +2131,13 @@ var Le = {
 };
 const li = /* @__PURE__ */ ro("data-v-b329ee4c");
 io("data-v-b329ee4c");
-const di = {
+const ui = {
   class: "resize-observer",
   tabindex: "-1"
 };
 no();
-const ui = /* @__PURE__ */ li((e, t, o, i, n, r) => (k(), Me("div", di)));
-Le.render = ui;
+const di = /* @__PURE__ */ li((e, t, o, i, n, r) => (k(), Me("div", ui)));
+Le.render = di;
 Le.__scopeId = "data-v-b329ee4c";
 Le.__file = "src/components/ResizeObserver.vue";
 const Gt = (e = "theme") => ({
@@ -2867,16 +2869,14 @@ const _i = /* @__PURE__ */ le({
         min: e.min,
         max: e.max,
         "slider-color": e.sliderColor,
-        "slider-border-color": a.sliderBorderColor,
-        "slider-hover-color": a.sliderHoverColor,
         "slider-size": e.sliderSize,
         "range-color": e.rangeColor,
         "range-active-color": e.rangeActiveColor,
         "range-height": e.rangeHeight
-      }, null, 8, ["modelValue", "min", "max", "slider-color", "slider-border-color", "slider-hover-color", "slider-size", "range-color", "range-active-color", "range-height"])
+      }, null, 8, ["modelValue", "min", "max", "slider-color", "slider-size", "range-color", "range-active-color", "range-height"])
     ]));
   }
-}), Ai = /* @__PURE__ */ Xe(Ti, [["__scopeId", "data-v-42a954b1"]]);
+}), Ai = /* @__PURE__ */ Xe(Ti, [["__scopeId", "data-v-58f9c35d"]]);
 export {
   Ai as default
 };

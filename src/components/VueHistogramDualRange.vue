@@ -27,8 +27,6 @@
       :min="min"
       :max="max"
       :slider-color="sliderColor"
-      :slider-border-color="sliderBorderColor"
-      :slider-hover-color="sliderHoverColor"
       :slider-size="sliderSize"
       :range-color="rangeColor"
       :range-active-color="rangeActiveColor"
